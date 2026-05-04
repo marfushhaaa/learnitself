@@ -9,7 +9,7 @@ import lombok.Data;
 public class Kategorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // wie Auto-Increment
-    private long id;
+    private Long id;
 
     @Column(nullable = false, length = 40)
     @Size(max = 40)

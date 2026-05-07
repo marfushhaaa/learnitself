@@ -10,7 +10,7 @@ import lombok.Data;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // wie Auto-Increment
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Auto-Increment")
+    //@Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Auto-Increment")
     private Long id;
 
     @Column(nullable = false, length = 40)

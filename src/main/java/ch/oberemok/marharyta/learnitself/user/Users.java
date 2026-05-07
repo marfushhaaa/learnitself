@@ -9,8 +9,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Users")
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +38,7 @@ public class User {
     @Size(max = 30)
     private String password;
 
-    public User() {
+    public Users() {
 
     }
 }

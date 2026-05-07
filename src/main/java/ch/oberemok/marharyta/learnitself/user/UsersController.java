@@ -17,32 +17,32 @@ import java.util.List;
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 @Validated
-public class UserController {
-    private final UserService userService;
+public class UsersController {
+    private final UsersService usersService;
 
-    public UserController(UserService service) {
-        this.userService = service;
+    public UsersController(UsersService service) {
+        this.usersService = service;
     }
 
     @PostMapping("api/users/register")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        User newUser = userService.registerUser(user);
+    public ResponseEntity<Users> createUser(@Valid @RequestBody Users users) {
+        Users newUser = usersService.registerUser(users);
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
 
     @GetMapping("api/users")
     @RolesAllowed(Roles.Read)
-    public ResponseEntity<List<User>> all() {
-        List<User> users = userService.getUsers();
+    public ResponseEntity<List<Users>> all() {
+        List<Users> users = usersService.getUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 
     @GetMapping("api/users/{id}")
     @RolesAllowed(Roles.Read)
-    public ResponseEntity<User> one(@PathVariable Long id) {
-        User user = userService.getUser(id);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity<Users> one(@PathVariable Long id) {
+        Users users = usersService.getUser(id);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 
@@ -51,14 +51,14 @@ public class UserController {
      * TODO: Auth klären
      *
      * Only if id matches, user will be able to change its credentials
-     * @param user user
+     * @param users user
      * @param id user id
      * @return Response with edited User und 200 Status (success)
      */
     @PutMapping("api/users/{id}")
     @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
-    public ResponseEntity<User> editUser(@Valid @RequestBody User user, @PathVariable Long id) {
-        User editedUser = userService.updateUser(user, id);
+    public ResponseEntity<Users> editUser(@Valid @RequestBody Users users, @PathVariable Long id) {
+        Users editedUser = usersService.updateUser(users, id);
         return new ResponseEntity<>(editedUser, HttpStatus.OK);
     }
 
@@ -74,7 +74,7 @@ public class UserController {
     @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     public ResponseEntity<MessageResponse> deleteUser (@PathVariable Long id) {
         try {
-            return ResponseEntity.ok(userService.deleteUser(id));
+            return ResponseEntity.ok(usersService.deleteUser(id));
         } catch (Throwable t) {
             return ResponseEntity.internalServerError().build();
         }

@@ -9,6 +9,6 @@ import java.util.List;
  * Für die Kommunikation mit DB
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    List<User> findByOrderByNameAsc();
+public interface UsersRepository extends JpaRepository<Users, Long> {
+    List<Users> findByOrderByUsernameAsc();
 }

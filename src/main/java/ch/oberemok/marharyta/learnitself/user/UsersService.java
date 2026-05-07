@@ -7,37 +7,37 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService {
-    private final UserRepository repository;
+public class UsersService {
+    private final UsersRepository repository;
 
-    public UserService(UserRepository repository) {
+    public UsersService(UsersRepository repository) {
         this.repository = repository;
     }
 
-    public List<User> getUsers() {
-        return repository.findByOrderByNameAsc();
+    public List<Users> getUsers() {
+        return repository.findByOrderByUsernameAsc();
     }
 
-    public User getUser(Long id) {
+    public Users getUser(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(id, User.class));
+                .orElseThrow(() -> new EntityNotFoundException(id, Users.class));
     }
 
-    public User registerUser(User user) {
-        return repository.save(user);
+    public Users registerUser(Users users) {
+        return repository.save(users);
     }
 
-    public User updateUser(User user, Long id) {
+    public Users updateUser(Users users, Long id) {
         return repository.findById(id)
                 .map(userOrig -> {
-                    userOrig.setFirst_name(user.getFirst_name());
-                    userOrig.setLast_name(user.getLast_name());
-                    userOrig.setUsername(user.getUsername());
-                    userOrig.setEmail(user.getEmail());
-                    userOrig.setPassword(user.getPassword());
+                    userOrig.setFirst_name(users.getFirst_name());
+                    userOrig.setLast_name(users.getLast_name());
+                    userOrig.setUsername(users.getUsername());
+                    userOrig.setEmail(users.getEmail());
+                    userOrig.setPassword(users.getPassword());
                     return repository.save(userOrig);
                 })
-                .orElseGet(() -> repository.save(user));
+                .orElseGet(() -> repository.save(users));
     }
 
     public MessageResponse deleteUser(Long id) {

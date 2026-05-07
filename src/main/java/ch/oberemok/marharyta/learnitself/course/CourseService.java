@@ -1,0 +1,57 @@
+package ch.oberemok.marharyta.learnitself.course;
+
+import ch.oberemok.marharyta.learnitself.base.MessageResponse;
+import ch.oberemok.marharyta.learnitself.category.Category;
+import ch.oberemok.marharyta.learnitself.category.CategoryRepository;
+import ch.oberemok.marharyta.learnitself.dataaccess.EntityNotFoundException;
+import ch.oberemok.marharyta.learnitself.user.Users;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CourseService {
+    private final CourseRepository repository;
+    private final CategoryRepository categoryRepository;
+
+    public CourseService (CourseRepository repository, CategoryRepository categoryRepository) {
+        this.repository = repository;
+        this.categoryRepository = categoryRepository;
+    }
+
+    public List<Course> getCourses() {
+        return repository.findByOrderByNameAsc();
+    }
+
+    public Course getCourse(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id, Users.class));
+    }
+
+    public Course createCourse(Course course) {
+        // ERST Kategorie aus DB laden
+        Category category = categoryRepository.findById(course.getCategory().getId())
+                .orElseThrow(() -> new EntityNotFoundException(course.getId(), Users.class));
+        course.setCategory(category);
+
+        // DANN speichern
+        return repository.save(course);
+    }
+
+    public Course updateCourse(Course course, Long id) {
+        return repository.findById(id)
+                .map(courseOrig -> {
+                    courseOrig.setCategory(course.getCategory());
+                    courseOrig.setName(course.getName());
+                    courseOrig.setCourseLength(course.getCourseLength());
+                    courseOrig.setDescription(course.getDescription());
+                    return repository.save(courseOrig);
+                })
+                .orElseGet(() -> repository.save(course));
+    }
+
+    public MessageResponse deleteCourse(Long id) {
+        repository.deleteById(id);
+        return new MessageResponse("Course " + id + " is successfully deleted");
+    }
+}

@@ -97,8 +97,6 @@ public class UsersController {
      *
      * TODO: Authhentication
      *
-     * @param id
-     * @return
      */
     @DeleteMapping("api/users/{id}")
     @RolesAllowed(Roles.Read)

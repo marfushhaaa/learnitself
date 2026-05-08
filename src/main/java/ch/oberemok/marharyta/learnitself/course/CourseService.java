@@ -29,12 +29,10 @@ public class CourseService {
     }
 
     public Course createCourse(Course course) {
-        // ERST Kategorie aus DB laden
         Category category = categoryRepository.findById(course.getCategory().getId())
                 .orElseThrow(() -> new EntityNotFoundException(course.getId(), Users.class));
         course.setCategory(category);
 
-        // DANN speichern
         return repository.save(course);
     }
 

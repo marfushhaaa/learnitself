@@ -39,15 +39,18 @@ public class CourseService {
     }
 
     public Course updateCourse(Course course, Long id) {
+        Category category = categoryRepository.findById(course.getCategory().getId())
+                .orElseThrow(() -> new EntityNotFoundException(course.getCategory().getId(), Category.class));
+
         return repository.findById(id)
                 .map(courseOrig -> {
-                    courseOrig.setCategory(course.getCategory());
+                    courseOrig.setCategory(category);
                     courseOrig.setName(course.getName());
                     courseOrig.setCourseLength(course.getCourseLength());
                     courseOrig.setDescription(course.getDescription());
                     return repository.save(courseOrig);
                 })
-                .orElseGet(() -> repository.save(course));
+                .orElseThrow(() -> new EntityNotFoundException(id, Course.class));
     }
 
     public MessageResponse deleteCourse(Long id) {

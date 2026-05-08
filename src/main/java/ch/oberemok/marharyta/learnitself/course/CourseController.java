@@ -51,7 +51,7 @@ public class CourseController {
 
 
     @PutMapping("api/courses/{id}")
-    @RolesAllowed(Roles.Read)
+    @RolesAllowed(Roles.Admin)
     @PreAuthorize("#course.ersteller.id == authentication.principal.id") // nur Ersteller
     public ResponseEntity<Course> updateCourse(
             @Valid @RequestBody Course course,
@@ -62,7 +62,7 @@ public class CourseController {
 
 
     @DeleteMapping("api/courses/{id}")
-    @RolesAllowed(Roles.Read)
+    @RolesAllowed(Roles.Admin)
     @PreAuthorize("hasRole('ADMIN')") // nur Admin darf löschen
     public ResponseEntity<MessageResponse> deleteCourse(@PathVariable @NonNull Long id) {
         try {

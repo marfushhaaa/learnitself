@@ -25,6 +25,7 @@ public class UsersController {
     }
 
     @PostMapping("api/users/register")
+    @RolesAllowed(Roles.Read)
     public ResponseEntity<Users> createUser(@Valid @RequestBody Users users) {
         Users newUser = usersService.registerUser(users);
         return new ResponseEntity<>(newUser, HttpStatus.OK);
@@ -56,6 +57,7 @@ public class UsersController {
      * @return Response with edited User und 200 Status (success)
      */
     @PutMapping("api/users/{id}")
+    @RolesAllowed(Roles.Read)
     @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     public ResponseEntity<Users> editUser(@Valid @RequestBody Users users, @PathVariable Long id) {
         Users editedUser = usersService.updateUser(users, id);
@@ -71,6 +73,7 @@ public class UsersController {
      * @return
      */
     @DeleteMapping("api/users/{id}")
+    @RolesAllowed(Roles.Read)
     @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     public ResponseEntity<MessageResponse> deleteUser (@PathVariable Long id) {
         try {

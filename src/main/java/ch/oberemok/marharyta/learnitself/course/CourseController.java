@@ -40,6 +40,7 @@ public class CourseController {
     @ApiResponse(responseCode = "201", description = "Course successfully created")
     @ApiResponse(responseCode = "400", description = "Invalid input")
     @ApiResponse(responseCode = "403", description = "Access denied")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
     public ResponseEntity<Course> createCourse(
             @Parameter(description = "Course object to be created", required = true)
             @Valid @RequestBody Course course)  {
@@ -85,6 +86,7 @@ public class CourseController {
     @ApiResponse(responseCode = "200", description = "Course successfully updated")
     @ApiResponse(responseCode = "404", description = "Course not found")
     @ApiResponse(responseCode = "403", description = "Access denied")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
     public ResponseEntity<Course> updateCourse(
             @Parameter(description = "Updated course object", required = true)
             @Valid @RequestBody Course course,
@@ -102,6 +104,7 @@ public class CourseController {
     @ApiResponse(responseCode = "200", description = "Course successfully deleted")
     @ApiResponse(responseCode = "404", description = "Course not found")
     @ApiResponse(responseCode = "403", description = "Access denied")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
     public ResponseEntity<MessageResponse> deleteCourse(
             @Parameter(description = "ID of the course to delete", required = true)
             @PathVariable @NonNull Long id) {

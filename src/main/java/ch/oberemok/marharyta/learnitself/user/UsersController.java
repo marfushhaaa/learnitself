@@ -34,6 +34,7 @@ public class UsersController {
     @Operation(summary = "Register a new user", description = "Creates a new user account")
     @ApiResponse(responseCode = "200", description = "User successfully created")
     @ApiResponse(responseCode = "400", description = "Invalid input")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
     public ResponseEntity<Users> createUser(
             @Parameter(description = "User object to be registered", required = true)
             @Valid @RequestBody Users users) {
@@ -46,6 +47,7 @@ public class UsersController {
     @Operation(summary = "Get all users", description = "Returns a list of all registered users")
     @ApiResponse(responseCode = "200", description = "Users successfully retrieved")
     @ApiResponse(responseCode = "403", description = "Access denied")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
     public ResponseEntity<List<Users>> all() {
         List<Users> users = usersService.getUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -58,6 +60,7 @@ public class UsersController {
     @ApiResponse(responseCode = "200", description = "User successfully retrieved")
     @ApiResponse(responseCode = "404", description = "User not found")
     @ApiResponse(responseCode = "403", description = "Access denied")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
     public ResponseEntity<Users> one(@Parameter(description = "ID of the user", required = true) @PathVariable Long id) {
         Users users = usersService.getUser(id);
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -79,6 +82,7 @@ public class UsersController {
     @ApiResponse(responseCode = "200", description = "User successfully updated")
     @ApiResponse(responseCode = "404", description = "User not found")
     @ApiResponse(responseCode = "403", description = "Access denied")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
     public ResponseEntity<Users> editUser(
             @Parameter(description = "Updated user object", required = true)
             @Valid @RequestBody Users users,
@@ -103,6 +107,7 @@ public class UsersController {
     @ApiResponse(responseCode = "200", description = "User successfully deleted")
     @ApiResponse(responseCode = "404", description = "User not found")
     @ApiResponse(responseCode = "403", description = "Access denied")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
     public ResponseEntity<MessageResponse> deleteUser (
             @Parameter(description = "ID of the user to delete", required = true)
             @PathVariable Long id) {

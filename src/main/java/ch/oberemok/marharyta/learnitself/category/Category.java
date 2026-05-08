@@ -3,6 +3,7 @@ package ch.oberemok.marharyta.learnitself.category;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -16,7 +17,8 @@ public class Category {
 
     @Column(nullable = false, length = 40)
     @NotEmpty
-    @Size(max = 40)
+    @NotNull
+    @Size(min = 3, max = 40, message = "Category name must contain 3-40 characters")
     private String name;
 
     public Category() {

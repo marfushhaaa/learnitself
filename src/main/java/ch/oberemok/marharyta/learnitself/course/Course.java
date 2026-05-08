@@ -5,6 +5,8 @@ import ch.oberemok.marharyta.learnitself.user.Users;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -20,14 +22,16 @@ public class Course {
     private long id;
 
     @Column(nullable = false, length = 40)
-    @Size(max = 40)
+    @Size(min = 3, max = 40, message = "Course name must contain 3-40 characters")
     @NotEmpty
+    @NotNull
     private String name;
 
     @Column(nullable = true, columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = true)
+    @Positive(message = "Course length must be positive")
     private int courseLength;
 
     @Column(nullable = false, updatable = false)

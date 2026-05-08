@@ -2,6 +2,7 @@ package ch.oberemok.marharyta.learnitself.category;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class Category {
     private Long id;
 
     @Column(nullable = false, length = 40)
+    @NotEmpty
     @Size(max = 40)
     private String name;
 

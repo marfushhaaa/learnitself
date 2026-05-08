@@ -4,6 +4,7 @@ import ch.oberemok.marharyta.learnitself.category.Category;
 import ch.oberemok.marharyta.learnitself.user.Users;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class Course {
 
     @Column(nullable = false, length = 40)
     @Size(max = 40)
+    @NotEmpty
     private String name;
 
     @Column(nullable = true, columnDefinition = "TEXT")

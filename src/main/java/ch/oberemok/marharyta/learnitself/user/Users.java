@@ -4,6 +4,7 @@ package ch.oberemok.marharyta.learnitself.user;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ public class Users {
 
     @Column(nullable = false, length = 20, unique = true)
     @Size(max = 20)
+    @NotEmpty
     private String username;
 
     @Column(length = 25)
@@ -26,16 +28,19 @@ public class Users {
 
     @Column(nullable = false, length = 25)
     @Size(max = 25)
+    @NotEmpty
     private String first_name;
 
     @Column(nullable = false, length = 50)
     @Size(max = 50)
+    @NotEmpty
     private String email;
 
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false, length = 30)
     @Size(max = 30)
+    @NotEmpty
     private String password;
 
     public Users() {
